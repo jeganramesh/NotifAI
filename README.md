@@ -1,6 +1,6 @@
 # NotifAI
 
-A full‑featured terminal Markdown editor with built‑in AI assistance. NotifAI combines a split‑pane live preview, Groq‑powered chat, math evaluation, and a robust export pipeline into one CLI application built with Textual.
+A full‑featured terminal Markdown editor with built‑in AI assistance. NotifAI combines a split‑pane live preview, Groq‑powered chat, and a robust export pipeline into one CLI application built with Textual.
 
 ## Features
 
@@ -33,7 +33,7 @@ pip install textual rich markdown xhtml2pdf groq
 
 Launch the editor:
 ```bash
-python -m notifai open
+python -m notifai
 ```
 
 Export a file:
@@ -43,7 +43,7 @@ python -m notifai export note.md --format pdf --output my_note
 
 Show version:
 ```bash
-python -m notifai version
+python -m notifai --version
 ```
 
 ## Editor Bindings
@@ -73,21 +73,18 @@ notifai/
 │   ├── app/
 │   │   ├── __init__.py
 │   │   ├── editor.py
-│   │   ├── ai_modal.py
 │   │   └── exporter.py
 │   └── cli/
 │       ├── __init__.py
-│       └── main.py
-├── README.md
-└── notifai.py
+│       └── commands.py
+├── .gitignore
+└── README.md
+
 ```
 
-## Contributing
+## License
 
-1. Fork the repo
-2. Create a feature branch
-3. Run `textual run -e notifai.app.editor`
-4. Submit a pull request
+MIT
 
 ## License
 
