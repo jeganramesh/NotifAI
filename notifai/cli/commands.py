@@ -6,7 +6,10 @@ def main():
     parser = argparse.ArgumentParser(description="NotifAI - CLI Markdown Editor with AI features")
     subparsers = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser("open", help="Open the NotifAI editor")
+    subparsers.add_parser("open", help="Open the NotifAI editor (simple mode)")
+    
+    ide_parser = subparsers.add_parser("ide", help="Open the Advanced NotifAI IDE with file tree and terminal")
+    ide_parser.add_argument("path", nargs="?", default=".", help="Root directory path (default: current directory)")
 
     export_parser = subparsers.add_parser("export", help="Export a markdown file")
     export_parser.add_argument("input", help="Input markdown file")
@@ -21,6 +24,9 @@ def main():
     if args.command == "open":
         from notifai.app import editor
         editor.launch()
+    elif args.command == "ide":
+        from notifai.app.advanced_ide import launch
+        launch(args.path)
     elif args.command == "export":
         from notifai.app.exporter import export_document
         try:
@@ -33,6 +39,6 @@ def main():
             print(f"Export failed: {e}", file=sys.stderr)
             sys.exit(1)
     elif args.command == "version":
-        print("NotifAI v0.1.0")
+        print("NotifAI v0.2.0 - Advanced IDE Edition")
     else:
         parser.print_help()

@@ -108,7 +108,7 @@ class NotifAIApp(App):
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield TextArea(id="editor", language="markdown", theme="monokai")
+        yield TextArea(id="editor", language="markdown")
         yield Static(id="preview")
         yield Footer()
 
