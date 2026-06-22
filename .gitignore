@@ -1,30 +1,65 @@
-# Python
+```
+# Compiled and build artifacts
+*.pyc
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
 
-# Virtual environments
+# Dependencies
 .venv/
 venv/
-ENV/
+node_modules/
 
-# Environment variables
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
 .env
+.env.local
+.env.*
 
-# Editor temp/history
+# Editors
+.vscode/
+.idea/
+
+# Coverage reports
+.coverage
+coverage/
+htmlcov/
+
+# Python specific
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.dist-info/
+
+# Pytest
+.pytest_cache/
+
+# Mypy
+.mypy_cache/
+
+# IDE specific
 *.swp
 *.swo
 *~
-.idea/
-.vscode/
-
-# NotifAI runtime artifacts
-note.md
-*.pdf
-*.html
-!README.html
-
-# OS files
 .DS_Store
 Thumbs.db
+```
