@@ -1,0 +1,38 @@
+```
+# Build outputs
+out/
+dist/
+build/
+target/
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Compiled JavaScript
+*.js.map
+*.d.ts
+*.d.ts.map
+
+# Environment variables
+.env
+.env.local
+.env.*
+!.env.example
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+
+# Logs
+*.log
+
+# Coverage
+coverage/
+.nyc_output/
+```

@@ -1,0 +1,197 @@
+{
+  "name": "treecourse",
+  "displayName": "Treecourse - AI Code Assistant",
+  "description": "Advanced AI-powered coding assistant with accept/reject workflows, markdown preview, and intelligent file operations",
+  "version": "1.0.0",
+  "publisher": "treecourse",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:treecourse.startChat",
+    "onCommand:treecourse.acceptAll",
+    "onCommand:treecourse.rejectAll",
+    "onCommand:treecourse.markdownPreview",
+    "onView:treecourseChatView"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "treecourse.startChat",
+        "title": "Treecourse: Start Chat",
+        "category": "Treecourse"
+      },
+      {
+        "command": "treecourse.acceptAll",
+        "title": "Treecourse: Accept All Changes",
+        "category": "Treecourse",
+        "icon": "$(check-all)"
+      },
+      {
+        "command": "treecourse.rejectAll",
+        "title": "Treecourse: Reject All Changes",
+        "category": "Treecourse",
+        "icon": "$(close-all)"
+      },
+      {
+        "command": "treecourse.acceptChange",
+        "title": "Treecourse: Accept This Change",
+        "category": "Treecourse",
+        "icon": "$(check)"
+      },
+      {
+        "command": "treecourse.rejectChange",
+        "title": "Treecourse: Reject This Change",
+        "category": "Treecourse",
+        "icon": "$(close)"
+      },
+      {
+        "command": "treecourse.markdownPreview",
+        "title": "Treecourse: Toggle Markdown Preview",
+        "category": "Treecourse",
+        "icon": "$(preview)"
+      },
+      {
+        "command": "treecourse.showQueue",
+        "title": "Treecourse: Show Command Queue",
+        "category": "Treecourse"
+      },
+      {
+        "command": "treecourse.undoLast",
+        "title": "Treecourse: Undo Last Operation",
+        "category": "Treecourse"
+      },
+      {
+        "command": "treecourse.clearHistory",
+        "title": "Treecourse: Clear History",
+        "category": "Treecourse"
+      },
+      {
+        "command": "treecourse.processClipboard",
+        "title": "Treecourse: Process AI Response from Clipboard",
+        "category": "Treecourse"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "treecourse-sidebar",
+          "title": "Treecourse AI",
+          "icon": "$(robot)"
+        }
+      ]
+    },
+    "views": {
+      "treecourse-sidebar": [
+        {
+          "type": "webview",
+          "id": "treecourseChatView",
+          "name": "Chat"
+        },
+        {
+          "type": "tree",
+          "id": "treecourseQueueView",
+          "name": "Pending Changes",
+          "when": "treecourse.hasPendingChanges"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Treecourse",
+      "properties": {
+        "treecourse.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for AI provider"
+        },
+        "treecourse.model": {
+          "type": "string",
+          "default": "gpt-4",
+          "description": "AI model to use"
+        },
+        "treecourse.maxTokens": {
+          "type": "number",
+          "default": 4096,
+          "description": "Maximum tokens for AI response"
+        },
+        "treecourse.enableMarkdownPreview": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable markdown preview panel"
+        },
+        "treecourse.showDiffViewer": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show diff viewer for changes"
+        },
+        "treecourse.autoAccept": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically accept all changes without review"
+        },
+        "treecourse.safeMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable safety checks before executing changes"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "treecourse.startChat",
+        "key": "ctrl+shift+a",
+        "mac": "cmd+shift+a"
+      },
+      {
+        "command": "treecourse.acceptAll",
+        "key": "ctrl+shift+enter",
+        "mac": "cmd+shift+enter",
+        "when": "treecourse.hasPendingChanges"
+      },
+      {
+        "command": "treecourse.rejectAll",
+        "key": "ctrl+shift+escape",
+        "mac": "cmd+shift+escape",
+        "when": "treecourse.hasPendingChanges"
+      },
+      {
+        "command": "treecourse.markdownPreview",
+        "key": "ctrl+shift+m",
+        "mac": "cmd+shift+m"
+      },
+      {
+        "command": "treecourse.processClipboard",
+        "key": "ctrl+shift+v",
+        "mac": "cmd+shift+v"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.0",
+    "@vscode/test-electron": "^2.3.8"
+  },
+  "dependencies": {
+    "diff": "^5.1.0",
+    "marked": "^9.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}

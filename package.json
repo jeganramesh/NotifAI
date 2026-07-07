@@ -1,0 +1,94 @@
+{
+  "name": "treecourse",
+  "displayName": "Treecourse - AI Code Apply",
+  "description": "Apply AI-generated code directly to your workspace. Parse AI responses with file blocks and apply changes with preview.",
+  "version": "1.0.0",
+  "publisher": "treecourse",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "ai",
+    "code generation",
+    "chatgpt",
+    "copilot",
+    "claude",
+    "apply",
+    "productivity"
+  ],
+  "activationEvents": [
+    "onCommand:treecourse.apply",
+    "onCommand:treecourse.dryRun"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "treecourse.apply",
+        "title": "Treecourse: Apply AI Response"
+      },
+      {
+        "command": "treecourse.dryRun",
+        "title": "Treecourse: Preview AI Response (Dry Run)"
+      }
+    ],
+    "configuration": {
+      "title": "Treecourse",
+      "properties": {
+        "treecourse.autoFormat": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically format files after applying changes"
+        },
+        "treecourse.showDiff": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show diff preview before applying changes"
+        },
+        "treecourse.backupFiles": {
+          "type": "boolean",
+          "default": true,
+          "description": "Create backup files before overwriting"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/diff": "^7.0.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^2.0.0",
+    "glob": "^10.5.0",
+    "mocha": "^10.8.2",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "diff": "^7.0.0",
+    "node-html-parser": "^7.0.0"
+  },
+  "icon": "images/icon.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/treecourse/treecourse-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/treecourse/treecourse-vscode/issues"
+  },
+  "homepage": "https://github.com/treecourse/treecourse-vscode#readme"
+}
