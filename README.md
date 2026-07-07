@@ -1,91 +1,49 @@
-# NotifAI
+# Treecourse: Agentic AI Development for VS Code
 
-A full‑featured terminal Markdown editor with built‑in AI assistance. NotifAI combines a split‑pane live preview, Groq‑powered chat, and a robust export pipeline into one CLI application built with Textual.
+**Treecourse** is a VS Code extension that bridges the gap between AI-generated code and your local file system. Instead of manually copy-pasting code blocks from the chat, Treecourse parses AI responses, previews changes, and allows you to apply them with a single click.
 
-## Features
+## 🚀 Features
 
-- Live split‑pane Markdown editing with instant preview
-- AI assistant modal (Ctrl + E) powered by Groq
-- Math evaluation for inline expressions
-- Export to Markdown, plain text, HTML, or PDF
-- Keyboard‑first workflow: save, export, quit without leaving the terminal
+* **Smart Parsing:** Automatically extracts file paths and code blocks from AI responses (Markdown).
+* **Safe Syncing:** Built-in "Dry Run" mode to preview changes before they hit your disk.
+* **Agentic Workflow:** The "Accept/Reject" gate ensures you maintain full control over your codebase.
+* **Atomic Updates:** Ensures files are created or updated correctly without risking corruption.
+* **Git Integration:** Automatically respects your `.gitignore` and tracks changes within your existing repository.
 
-## Requirements
+## 📥 How to Use
 
-- Python 3.9+
-- `textual`
-- `rich`
-- `markdown`
-- `xhtml2pdf`
-- `groq` (optional, for the AI assistant)
+1. **Generate:** Ask any AI (ChatGPT, Claude, Copilot) for code changes.
+2. **Paste:** Copy the AI response containing the `## File: path/to/file` blocks.
+3. **Apply:** Run the Treecourse command (`Ctrl+Shift+P` -> `Treecourse: Apply AI Response`).
+4. **Review:** Treecourse will open a preview window showing you a `diff` of the proposed changes.
+5. **Sync:** Click **Accept** to write the files, or **Reject** to discard them.
 
-## Installation
+## ⚙️ Extension Commands
 
-```bash
-git clone https://github.com/yourname/notifai.git
-cd notifai
-python -m venv .venv
-source .venv/bin/activate
-pip install textual rich markdown xhtml2pdf groq
-```
+| Command | Description |
+| --- | --- |
+| `treecourse.apply` | Opens a text box to paste your AI response and begins the sync process. |
+| `treecourse.dryRun` | Parses the response and logs proposed changes to the console without writing files. |
 
-## Usage
+## 🏗️ Architecture Flow
 
-Launch the editor:
-```bash
-python -m notifai
-```
+Treecourse follows an "Observe-Propose-Execute" loop to ensure stability.
 
-Export a file:
-```bash
-python -m notifai export note.md --format pdf --output my_note
-```
+## 🛠️ Requirements
 
-Show version:
-```bash
-python -m notifai --version
-```
+* **VS Code:** 1.80.0 or higher.
+* **Environment:** Works on Windows, macOS, and Linux.
 
-## Editor Bindings
+## 📦 Getting Started for Developers
 
-| Key | Action |
-|-----|--------|
-| Ctrl + E | Open AI Assistant |
-| Ctrl + S | Save current note to `note.md` |
-| Ctrl + P | Trigger export dialog |
-| Ctrl + Q | Quit |
+If you are looking to contribute or fork Treecourse:
 
-## AI Configuration
+1. **Clone the repo:** `git clone https://github.com/your-username/treecourse`
+2. **Install dependencies:** `npm install`
+3. **Run:** Press `F5` in VS Code to launch the **Extension Development Host**.
 
-Set your Groq API key in the environment before opening the editor:
-```bash
-export GROQ_API_KEY="your-api-key"
-python -m notifai open
-```
+### Tips for your README:
 
-## Project Structure
-
-```
-notifai/
-├── notifai/
-│   ├── __init__.py
-│   ├── __main__.py
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── editor.py
-│   │   └── exporter.py
-│   └── cli/
-│       ├── __init__.py
-│       └── commands.py
-├── .gitignore
-└── README.md
-
-```
-
-## License
-
-MIT
-
-## License
-
-MIT
+* **Add a GIF:** If you can, record a 10-second screen capture of the extension parsing a response and the "Accept/Reject" button appearing. Visual proof is the biggest factor in VS Code extension downloads.
+* **Explain the `## File:` format:** Ensure the "How to use" section explicitly shows the user the format they need to ask the AI for (e.g., *"Make sure to tell the AI: Please format your output with ## File: filename code-blocks"*).
+* **Badge the Version:** Once you publish, add a "Version" and "License" badge to the top.
