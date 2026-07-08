@@ -3,19 +3,12 @@ import { parseAIResponse, FileChange } from './parser';
 import { applyChanges, previewChanges } from './fileHandler';
 
 let outputChannel: vscode.OutputChannel;
-let webviewPanel: vscode.WebviewPanel | undefined;
 
 export function activate(context: vscode.ExtensionContext) {
     outputChannel = vscode.window.createOutputChannel('Treecourse');
     context.subscriptions.push(outputChannel);
     
     outputChannel.appendLine('Treecourse extension activated');
-
-    // Register Treecourse view provider for sidebar
-    const treecourseViewProvider = new TreecourseViewProvider(context.extensionUri);
-    context.subscriptions.push(
-        vscode.window.registerWebviewViewProvider('treecourse.webview', treecourseViewProvider)
-    );
 
     // Register Apply command
     const applyCommand = vscode.commands.registerCommand('treecourse.apply', async () => {
@@ -161,113 +154,6 @@ async function formatFiles(filePaths: string[]) {
         } catch (error) {
             outputChannel.appendLine(`Warning: Could not format ${filePath}`);
         }
-    }
-}
-
-class TreecourseViewProvider implements vscode.WebviewViewProvider {
-    public static readonly viewType = 'treecourse.webview';
-
-    constructor(private readonly extensionUri: vscode.Uri) {}
-
-    resolveWebviewView(
-        webviewView: vscode.WebviewView,
-        context: vscode.WebviewViewResolveContext,
-        _token: vscode.CancellationToken
-    ) {
-        webviewView.webview.options = {
-            enableScripts: true,
-            localResourceRoots: [this.extensionUri]
-        };
-
-        webviewView.webview.html = this.getHtmlForWebview(webviewView.webview);
-
-        // Handle messages from the webview
-        webviewView.webview.onDidReceiveMessage(data => {
-            switch (data.type) {
-                case 'apply':
-                    handleApplyCommand();
-                    break;
-                case 'dryRun':
-                    handleDryRunCommand();
-                    break;
-            }
-        });
-    }
-
-    private getHtmlForWebview(webview: vscode.Webview) {
-        return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Treecourse</title>
-    <style>
-        body {
-            padding: 10px;
-            font-family: var(--vscode-font-family);
-            color: var(--vscode-foreground);
-            background-color: var(--vscode-sideBar-background);
-        }
-        h2 {
-            margin-top: 0;
-        }
-        .button-container {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        button {
-            flex: 1;
-            padding: 8px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-        }
-        .apply-btn {
-            background-color: var(--vscode-button-background);
-            color: var(--vscode-button-foreground);
-        }
-        .apply-btn:hover {
-            background-color: var(--vscode-button-hoverBackground);
-        }
-        .dryrun-btn {
-            background-color: var(--vscode-button-secondaryBackground);
-            color: var(--vscode-button-secondaryForeground);
-        }
-        .dryrun-btn:hover {
-            background-color: var(--vscode-button-secondaryHoverBackground);
-        }
-        .info {
-            margin-top: 20px;
-            font-size: 12px;
-            opacity: 0.8;
-        }
-    </style>
-</head>
-<body>
-    <h2>Treecourse</h2>
-    <p>AI Code Apply Extension</p>
-    <div class="button-container">
-        <button class="apply-btn" id="applyBtn">Apply</button>
-        <button class="dryrun-btn" id="dryRunBtn">Preview</button>
-    </div>
-    <div class="info">
-        <p>Use the commands to apply AI-generated code to your workspace.</p>
-    </div>
-    <script>
-        const vscode = acquireVsCodeApi();
-        
-        document.getElementById('applyBtn').addEventListener('click', () => {
-            vscode.postMessage({ type: 'apply' });
-        });
-        
-        document.getElementById('dryRunBtn').addEventListener('click', () => {
-            vscode.postMessage({ type: 'dryRun' });
-        });
-    </script>
-</body>
-</html>`;
     }
 }
 

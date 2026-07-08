@@ -37,26 +37,6 @@
         "title": "Treecourse: Preview AI Response (Dry Run)"
       }
     ],
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "treecourse-sidebar",
-          "title": "Treecourse",
-          "icon": "images/icon.png"
-        }
-      ]
-    },
-    "views": {
-      "treecourse-sidebar": [
-        {
-          "type": "webview",
-          "id": "treecourse.webview",
-          "name": "Treecourse",
-          "icon": "images/icon.png",
-          "contextualTitle": "Treecourse - AI Code Apply"
-        }
-      ]
-    },
     "configuration": {
       "title": "Treecourse",
       "properties": {
