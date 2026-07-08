@@ -18,7 +18,7 @@ The input must be valid Markdown. Each file operation is encapsulated in a `## F
 ```language
 // Code content here
 ```
-```
+
 
 ### Directive Reference
 
