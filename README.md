@@ -153,7 +153,7 @@ ON group_members (student_id, joined_at DESC);
 
 ## File: `lib/core/utils/legacy_formatter.dart`
 <!-- op:delete -->
-```
+
 
 
 ---
